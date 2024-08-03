@@ -2,9 +2,10 @@
 
 import {useState} from "react";
 import Chat from "@/app/chat";
+import Map from "@/app/map";
 
 export default function Home() {
-    const [location, setLocation] = useState<string | undefined>(undefined);
+    const [location, setLocation] = useState<{ lat: number, lng: number }>({lat: 44, lng: -80});
 
     return (
           <div className={"flex flex-col items-center justify-center lg:h-screen w-full"}>
@@ -12,7 +13,9 @@ export default function Home() {
               <div className={"flex items-center w-full"}>
                   <div className={"flex flex-col-reverse lg:flex-row gap-4 w-full"}>
                       <div className={"flex-1"}>
-                          <div className={"blue-shadow border rounded-2xl m-6 mt-0 lg:mr-0 lg:mt-6 aspect-square"}></div>
+                          <div className={"blue-shadow border rounded-2xl m-6 mt-0 lg:mr-0 lg:mt-6 aspect-square overflow-clip flex justify-center items-center"}>
+                              <Map location={location}/>
+                          </div>
                       </div>
                       <div className={"flex-1"}>
                           <Chat location={location} setLocation={setLocation}/>

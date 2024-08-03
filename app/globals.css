@@ -168,3 +168,6 @@ input[type=number]::-ms-reveal {
     text-shadow: 0 0 100px rgb(59 130 246);
 }
 
+.gm-no-border iframe + div {
+    border: none !important;
+}
