@@ -8,7 +8,7 @@ export default function Map({window, setWindow}: {
     window: { lat: number, lng: number, zoom: number },
     setWindow: (window: { lat: number, lng: number, zoom: number }) => void
 }) {
-    const [mapType, setMapType] = useState<"roadmap" | "satellite">("roadmap")
+    const [mapType, setMapType] = useState<"roadmap" | "satellite">("roadmap");
 
     return (
           <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS_KEY ?? ""}>
@@ -22,13 +22,12 @@ export default function Map({window, setWindow}: {
                     backgroundColor={"bg-background"}
                     mapTypeId={mapType}
                     disableDefaultUI={true}
-
               />
               <MapControl position={1}>
                   <div className={"rounded-lg bg-background m-4 p-1 outline outline-1 outline-accent"}>
-                      <Tabs defaultValue="default">
+                      <Tabs defaultValue={mapType}>
                           <TabsList>
-                              <TabsTrigger value="default" onClick={() => setMapType("roadmap")}>Default</TabsTrigger>
+                              <TabsTrigger value="roadmap" onClick={() => setMapType("roadmap")}>Roadmap</TabsTrigger>
                               <TabsTrigger value="satellite"
                                            onClick={() => setMapType("satellite")}>Satellite</TabsTrigger>
                           </TabsList>
