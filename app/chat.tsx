@@ -16,14 +16,14 @@ export default function Chat({window, setWindow}: {
     async function onSubmit() {
         if (input.length > 0 && !loading) {
             setLoading(true);
-            setHistory(prevHistory => [...prevHistory, {role: "user", message: {message: input, ...window}}]);
+            setHistory(prevHistory => [...prevHistory, {role: "user", message: {...window, message: input}}]);
             setInput("");
         }
     }
 
     async function action() {
         if (input.length > 0 && !loading) {
-            const res = await Gemini(history, {message: input, ...window});
+            const res = await Gemini(history, {...window, message: input});
             setHistory(prevHistory => [...prevHistory, {role: "model", message: res}]);
             setWindow(res);
             setLoading(false);
@@ -31,7 +31,7 @@ export default function Chat({window, setWindow}: {
     }
 
     if (history.length == 0) return (
-          <div className={"blue-shadow border rounded-2xl m-6 mb-0 lg:ml-0 lg:mb-6 flex flex-col justify-center items-center aspect-square"}>
+          <div className={"blue-shadow border rounded-2xl m-4 mb-0 lg:ml-0 lg:mb-4 flex flex-col justify-center items-center aspect-square"}>
               <div className={"flex flex-col gap-4 m-8 items-center"}>
                   <h1 className={"text-center"}>Where would you like to visit?</h1>
                   <form action={action} onSubmit={onSubmit} className={"w-full sm:w-80 flex gap-2"}>
@@ -47,7 +47,7 @@ export default function Chat({window, setWindow}: {
         return (
               <div key={key} className={cn(
                     side === "left" ? "self-start text-left" : "self-end",
-                    message ? "w-3/5" : "w-40 aspect-square flex justify-center items-center",
+                    message ? "w-4/5 sm:w-3/5" : "w-40 aspect-square flex justify-center items-center",
                     "rounded-2xl p-4 bg-muted transition-transform ease-in-out"
               )}>
                   {
@@ -60,7 +60,7 @@ export default function Chat({window, setWindow}: {
     }
 
     return (
-          <div className={"blue-shadow border rounded-2xl m-6 mb-0 lg:ml-0 lg:mb-6 aspect-square flex flex-col justify-end p-4 gap-4"}>
+          <div className={"blue-shadow border rounded-2xl m-4 mb-0 lg:ml-0 lg:mb-4 aspect-square flex flex-col justify-end p-4 gap-4"}>
               <div className={"flex-1 overflow-y-scroll flex flex-col gap-4 justify-end"}>
                   {history.map((value, index) => message(
                         index.toString(),

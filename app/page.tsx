@@ -18,7 +18,7 @@ export default function Home() {
               <div className={"flex items-center w-full"}>
                   <div className={"flex flex-col-reverse lg:flex-row gap-4 w-full"}>
                       <div className={"flex-1"}>
-                          <div className={"blue-shadow border rounded-2xl m-6 mt-0 lg:mr-0 lg:mt-6 aspect-square overflow-clip flex justify-center items-center"}>
+                          <div className={"blue-shadow border rounded-2xl m-4 mt-0 lg:mr-0 lg:mt-4 aspect-square overflow-clip flex justify-center items-center"}>
                               <Map window={window} setWindow={setWindow}/>
                           </div>
                       </div>
