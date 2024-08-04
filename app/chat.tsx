@@ -6,22 +6,27 @@ import {useState} from "react";
 import Gemini, {Message} from "@/lib/gemini";
 
 export default function Chat({window, setWindow}: {
-    window: { lat: number, lng: number, zoom: number },
-    setWindow: (window: { lat: number, lng: number, zoom: number }) => void
+    window: { lat: number, lng: number, zoom: number, mapType: "roadmap" | "satellite" },
+    setWindow: (window: { lat: number, lng: number, zoom: number, mapType: "roadmap" | "satellite" }) => void
 }) {
     const [history, setHistory] = useState<{ role: "model" | "user", message: Message }[]>([]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
 
-    async function gemini() {
+    async function onSubmit() {
         if (input.length > 0 && !loading) {
             setLoading(true);
-            history.push({role: "user", message: {message: input, ...window}});
+            setHistory(prevHistory => [...prevHistory, {role: "user", message: {message: input, ...window}}]);
             setInput("");
+        }
+    }
+
+    async function action() {
+        if (input.length > 0 && !loading) {
             const res = await Gemini(history, {message: input, ...window});
-            setLoading(false);
-            history.push({role: "model", message: res});
+            setHistory(prevHistory => [...prevHistory, {role: "model", message: res}]);
             setWindow(res);
+            setLoading(false);
         }
     }
 
@@ -29,8 +34,8 @@ export default function Chat({window, setWindow}: {
           <div className={"blue-shadow border rounded-2xl m-6 mb-0 lg:ml-0 lg:mb-6 flex flex-col justify-center items-center aspect-square"}>
               <div className={"flex flex-col gap-4 m-8 items-center"}>
                   <h1 className={"text-center"}>Where would you like to visit?</h1>
-                  <form onSubmit={gemini} className={"w-full sm:w-80 flex gap-2"}>
-                      <Input value={input} onChange={event => setInput(event.target.value)}
+                  <form action={action} onSubmit={onSubmit} className={"w-full sm:w-80 flex gap-2"}>
+                      <Input autoFocus value={input} onChange={event => setInput(event.target.value)}
                              placeholder={"Seattle, WA"}/>
                       <Button className={"w-10 aspect-square p-2.5"}><SendIcon /></Button>
                   </form>
@@ -64,7 +69,7 @@ export default function Chat({window, setWindow}: {
                   ))}
                   {loading && message(history.length.toString(), "left")}
               </div>
-              <form onSubmit={gemini} className={"flex gap-2"}>
+              <form action={action} onSubmit={onSubmit} className={"flex gap-2"}>
                   <Input autoFocus className={"focus:outline-none"} value={input}
                          onChange={event => setInput(event.target.value)} placeholder={"Ask me anything..."}/>
                   <Button disabled={loading} className={"w-10 aspect-square p-2.5"}>

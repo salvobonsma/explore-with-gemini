@@ -5,7 +5,12 @@ import Chat from "@/app/chat";
 import Map from "@/app/map";
 
 export default function Home() {
-    const [window, setWindow] = useState<{ lat: number, lng: number, zoom: number }>({lat: 44, lng: -80, zoom: 4});
+    const [window, setWindow] = useState<{
+        lat: number,
+        lng: number,
+        zoom: number,
+        mapType: "roadmap" | "satellite"
+    }>({lat: 44, lng: -80, zoom: 4, mapType: "roadmap"});
 
     return (
           <div className={"flex flex-col items-center justify-center lg:h-screen w-full"}>

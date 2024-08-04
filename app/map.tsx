@@ -2,35 +2,39 @@ import {APIProvider, Map as GoogleMap, MapControl} from "@vis.gl/react-google-ma
 import {Button} from "@/components/ui/button";
 import {Minus, Plus} from "lucide-react";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {useState} from "react";
 
 export default function Map({window, setWindow}: {
-    window: { lat: number, lng: number, zoom: number },
-    setWindow: (window: { lat: number, lng: number, zoom: number }) => void
+    window: { lat: number, lng: number, zoom: number, mapType: "roadmap" | "satellite" },
+    setWindow: (window: { lat: number, lng: number, zoom: number, mapType: "roadmap" | "satellite" }) => void
 }) {
-    const [mapType, setMapType] = useState<"roadmap" | "satellite">("roadmap");
 
     return (
           <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS_KEY ?? ""}>
               <GoogleMap
                     className={"w-full h-full gm-no-border"}
                     center={window}
+                    defaultCenter={window}
                     zoom={window.zoom}
-                    onZoomChanged={ev => setWindow({...ev.detail, ...ev.detail.center})}
-                    onCenterChanged={ev => setWindow({...ev.detail, ...ev.detail.center})}
+                    defaultZoom={window.zoom}
+                    onCameraChanged={ev => setWindow({...ev.detail, ...ev.detail.center, ...window})}
                     gestureHandling={"greedy"}
                     backgroundColor={"bg-background"}
-                    mapTypeId={mapType}
+                    mapTypeId={window.mapType}
                     disableDefaultUI={true}
               >
                   <MapControl position={1}>
                       <div className={"rounded-lg bg-background m-4 p-1 outline outline-1 outline-accent"}>
-                          <Tabs defaultValue={mapType}>
+                          <Tabs value={window.mapType}>
                               <TabsList>
-                                  <TabsTrigger value="roadmap"
-                                               onClick={() => setMapType("roadmap")}>Roadmap</TabsTrigger>
+                                  <TabsTrigger value="roadmap" onClick={() => setWindow({
+                                      ...window,
+                                      mapType: "roadmap"
+                                  })}>Roadmap</TabsTrigger>
                                   <TabsTrigger value="satellite"
-                                               onClick={() => setMapType("satellite")}>Satellite</TabsTrigger>
+                                               onClick={() => setWindow({
+                                                   ...window,
+                                                   mapType: "satellite"
+                                               })}>Satellite</TabsTrigger>
                               </TabsList>
                           </Tabs>
                       </div>
