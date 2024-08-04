@@ -25,6 +25,11 @@ export default function RootLayout({
           <main className={"container"}>
               {children}
           </main>
+          <footer className={"border-t"}>
+              <p className={"muted container my-6"}>
+                  Developed for the 2024 Gemini API Developer Competition by Salvo Bonsma.
+              </p>
+          </footer>
           </body>
           </html>
     );

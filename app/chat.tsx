@@ -2,9 +2,9 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {SendIcon} from "lucide-react";
 
-export default function Chat({location, setLocation}: {
-    location?: { lat: number, lng: number },
-    setLocation: (location: { lat: number, lng: number }) => void
+export default function Chat({window, setWindow}: {
+    window?: { lat: number, lng: number, zoom: number },
+    setWindow: (window: { lat: number, lng: number, zoom: number }) => void
 }) {
     if (!location) return (
           <div className={"blue-shadow border rounded-2xl m-6 mb-0 lg:ml-0 lg:mb-6 flex flex-col justify-center items-center aspect-square"}>
