@@ -1,4 +1,6 @@
-## Develop
+### View online: https://explore-with-gemini.up.railway.app
+
+# Develop
 
 First, run the development server:
 
