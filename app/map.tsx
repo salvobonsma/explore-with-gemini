@@ -41,9 +41,13 @@ export default function Map({window, setWindow}: {
                   <MapControl position={3}>
                       <div className={"rounded-lg bg-background m-4 p-1 flex gap-2 outline outline-1 outline-accent"}>
                           <Button variant={"ghost"} className={"w-10 p-2.5"}
-                                  onClick={() => setWindow({...window, zoom: window.zoom - 1})}><Minus/></Button>
+                                  onClick={() => {
+                                      if (window.zoom > 0) setWindow({...window, zoom: window.zoom - 1});
+                                  }}><Minus/></Button>
                           <Button variant={"ghost"} className={"w-10  p-2.5"}
-                                  onClick={() => setWindow({...window, zoom: window.zoom + 1})}><Plus/></Button>
+                                  onClick={() => {
+                                      if (window.zoom < 20) setWindow({...window, zoom: window.zoom + 1});
+                                  }}><Plus/></Button>
                       </div>
                   </MapControl>
               </GoogleMap>
