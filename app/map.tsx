@@ -7,7 +7,6 @@ export default function Map({window, setWindow}: {
     window: { lat: number, lng: number, zoom: number, mapType: "roadmap" | "satellite" },
     setWindow: (window: { lat: number, lng: number, zoom: number, mapType: "roadmap" | "satellite" }) => void
 }) {
-
     return (
           <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS_KEY ?? ""}>
               <GoogleMap
@@ -16,7 +15,7 @@ export default function Map({window, setWindow}: {
                     defaultCenter={window}
                     zoom={window.zoom}
                     defaultZoom={window.zoom}
-                    onCameraChanged={ev => setWindow({...ev.detail, ...ev.detail.center, ...window})}
+                    onCameraChanged={ev => setWindow({...window, ...ev.detail, ...ev.detail.center})}
                     gestureHandling={"greedy"}
                     backgroundColor={"bg-background"}
                     mapTypeId={window.mapType}
