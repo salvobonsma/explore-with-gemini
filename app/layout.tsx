@@ -27,7 +27,13 @@ export default function RootLayout({
           </main>
           <footer className={"border-t"}>
               <p className={"muted container my-6"}>
-                  Developed by Salvo Bonsma for the 2024 Gemini API Developer Competition.
+                  Developed by <a className={"hover:underline"} href={"https://github.com/salvobonsma"}
+                                  target={"_blank"}>Salvo Bonsma</a> for the <a className={"hover:underline"}
+                                                                                href={"https://ai.google.dev/competition"}
+                                                                                target={"_blank"}>2024 Gemini API
+                  Developer Competition</a>. Code on <a className={"hover:underline"}
+                                                        href={"https://github.com/salvobonsma/explore-with-gemini"}
+                                                        target={"_blank"}>GitHub</a>.
               </p>
           </footer>
           </body>

@@ -41,7 +41,7 @@ export default function Chat({window, setWindow}: {
     if (history.length == 0) return (
           <div className={"blue-shadow border rounded-2xl m-4 mb-0 lg:ml-0 lg:mb-4 flex flex-col justify-center items-center aspect-square"}>
               <div className={"flex flex-col gap-4 m-8 items-center"}>
-                  <h1 className={"text-center"}>Where would you like to visit?</h1>
+                  <h1 className={"text-center font-semibold"}>Where would you like to visit?</h1>
                   <form action={() => setTriggered(true)} className={"w-full sm:w-80 flex gap-2"}>
                       <Input autoFocus value={input} onChange={event => setInput(event.target.value)}
                              placeholder={"Ask me anything..."}/>
@@ -56,7 +56,7 @@ export default function Chat({window, setWindow}: {
               <div key={key} className={cn(
                     side === "left" ? "self-start text-left" : "self-end",
                     message ? "w-4/5 sm:w-3/5" : "w-40 aspect-square flex justify-center items-center",
-                    "rounded-2xl p-4 bg-muted transition-transform ease-in-out"
+                    "rounded-2xl p-4 bg-muted transition-all ease-in-out"
               )}>
                   {
                       message ? message : (
@@ -69,7 +69,7 @@ export default function Chat({window, setWindow}: {
 
     return (
           <div className={"blue-shadow border rounded-2xl m-4 mb-0 lg:ml-0 lg:mb-4 aspect-square flex flex-col justify-end p-4 gap-4"}>
-              <div className={"flex-1 overflow-y-scroll flex flex-col gap-4 justify-end"}>
+              <div className={"flex-1 overflow-y-auto flex flex-col gap-4 justify-end"}>
                   {history.map((value, index) => message(
                         index.toString(),
                         value.role == "model" ? "left" : "right",
@@ -100,5 +100,6 @@ export default function Chat({window, setWindow}: {
                   </Button>
               </form>
           </div>
+
     );
 }
